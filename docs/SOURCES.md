@@ -21,35 +21,37 @@ Rule: a phone number is on the site only if it was seen on the organization's ow
 
 | # | Source | URL | Facts taken |
 |---|---|---|---|
-| 1 | ACLU: Know Your Rights, Immigrants' Rights | https://www.aclu.org/know-your-rights/immigrants-rights | Steps for ICE or police at the home, stopped in public, stopped in a car, checkpoints, arrest or detention, the right to remain silent, refusing searches, warrants signed by a judge, Form I-205, the sentences to say out loud, right to a lawyer at your own cost, consulate contact, A-number, fear of return, probation search condition. |
-| 2 | ACLU: Know Your Rights, Immigrants' Rights (Spanish version) | https://www.aclu.org/know-your-rights/derechos-de-los-inmigrantes | Spanish version of the ACLU page, linked for Spanish readers. |
-| 3 | ACLU of Arizona: Know Your Rights Before, During, and After a Workplace Raid | https://www.acluaz.org/know-your-rights/know-your-rights-during-and-after-workplace-raid/ | Workplace steps (do not run, ask if free to leave, remain silent, do not sign), when agents may enter a workplace, the Arizona rule on giving your name, family plan items (extra keys, trusted person, power of attorney, medications), important documents list, warning about notaries. |
-| 4 | ILRC: Red Cards / Tarjetas Rojas | https://www.ilrc.org/red-cards-tarjetas-rojas | What red cards are, that they are free, that they can be printed at home, that they are not individual legal advice, and the five points printed on the card. |
-| 5 | ILRC: Printable red card, Spanish (PDF on ilrc.org) | https://www.ilrc.org/sites/default/files/2025-01/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Spanish.pdf | Official printable file. Linked, not rehosted. |
-| 6 | ILRC: Printable red card, English (PDF on ilrc.org) | https://www.ilrc.org/sites/default/files/documents/red_card-self_srv-english.pdf | Official printable file. Linked, not rehosted. |
-| 7 | ILRC: Step-by-Step Family Preparedness Plan (English and Spanish) | https://www.ilrc.org/community-resources/know-your-rights/step-step-family-preparedness-plan | Family plan: back-up caregiver, medical information, passports for children, school emergency contacts, ICE detainee locator and A-number, consulate number, who may give immigration legal advice, what to carry. |
-| 8 | ILRC: Family Preparedness Plan (Spanish download page) | https://www.ilrc.org/community-resources/plan-de-preparaci%C3%B3n-familiar | Spanish family preparedness packet. Linked, not rehosted. |
-| 9 | ICE: Online Detainee Locator System (official government site) | https://locator.ice.gov/odls/ | Official tool to find a person in ICE custody. |
-| 10 | Department of Justice (EOIR): automated case information | https://www.justice.gov/eoir/customer-service-initiatives | The court information line 1-800-898-7180, in English and Spanish, 24 hours a day, 7 days a week; it needs the A-number. |
-| 11 | Department of Justice (EOIR): List of Pro Bono Legal Service Providers | https://www.justice.gov/eoir/list-pro-bono-legal-service-providers | Official list by immigration court, including Eloy, Florence, Phoenix and Tucson. EOIR says it does not endorse the organizations. |
-| 12 | Department of Justice (EOIR): Recognized Organizations and Accredited Representatives roster | https://www.justice.gov/eoir/recognition-accreditation-roster-reports | Official roster to check whether a non-lawyer is allowed to represent you. |
-| 13 | Immigration Advocates Network: legal services directory, Arizona | https://www.immigrationadvocates.org/legaldirectory/search?state=AZ | National directory that lists only nonprofits with free or low-cost immigration legal services. |
-| 14 | Florence Project: contact page | https://firrp.org/getinvolved/contact/ | Phone numbers (520) 777-5600 Tucson and (602) 307-1008 Phoenix; clients are people who are detained; no walk-ins. |
-| 15 | Florence Project: frequently asked questions | https://firrp.org/faq/ | The Florence Project does not charge fees; how families can look for a detained person. |
-| 16 | Phoenix Legal Action Network (PLAN): legal services | https://planphx.org/legal-services | Free representation for non-detained, low-income immigrants in Maricopa County or with cases in the Phoenix Immigration Court. |
-| 17 | Phoenix Legal Action Network (PLAN): contact | https://planphx.org/contact | Phone 602-730-1726; office by appointment only. |
-| 18 | Friendly House: Immigration and Legal Services | https://friendlyhouse.org/immigration-legal-services/ | Phone 602-416-7200; 802 S. 1st Ave, Suite 1, Phoenix; describes its services as affordable. |
-| 19 | Catholic Charities Community Services: Immigration Legal Services | https://www.catholiccharitiesaz.org/immigration-legal-services | Phones 602-749-4415 and toll-free 855-316-2229; 5151 N. 19th Avenue, Phoenix; deportation defense and asylum listed; staff includes DOJ accredited representatives. |
-| 20 | International Rescue Committee (IRC) in Phoenix | https://www.rescue.org/united-states/phoenix-az | Phone (602) 433-2440; 4425 West Olive Avenue, Suite 400, Glendale; describes low-cost immigration legal services. |
-| 21 | AZLawHelp (Arizona Bar Foundation) | https://www.azlawhelp.org/ | Phone 866-637-5341 to check if you qualify for free or reduced fee legal help. |
+| 1 | ACLU: Know Your Rights, Immigrants' Rights | https://www.aclu.org/know-your-rights/immigrants-rights | Quoted word for word, whole scenarios, no edits: overview; law enforcement asks about my immigration status; stopped by police or ICE; police or ICE at my home; I need a lawyer; stopped in transit; detained while my case is underway; ICE at my place of business with a search warrant or subpoena. Linked: all other scenarios. |
+| 2 | ACLU: Know Your Rights, Immigrants' Rights (Spanish version) | https://www.aclu.org/know-your-rights/derechos-de-los-inmigrantes | Spanish version of the ACLU page, quoted word for word in the Spanish half of this page (the matching scenarios, in ACLU's own Spanish). Linked for all other scenarios. |
+| 3 | ACLU of Arizona: Know Your Rights Before, During, and After a Workplace Raid | https://www.acluaz.org/know-your-rights/know-your-rights-during-and-after-workplace-raid/ | Quoted word for word: the "Plan for your family", "Find an attorney" and "Know where important documents are" passages, and the two workplace questions about entering a workplace and being detained during a search. Linked: the rest of the page. |
+| 4 | ACLU of Arizona: Know Your Rights Before, During, and After a Workplace Raid (Spanish version) | https://www.acluaz.org/es/know-your-rights/conozca-sus-derechos-antes-durante-y-despues-de-una-redada-en-el-lugar-de-trabajo/ | Quoted word for word: the family plan, important documents, finding an attorney, and workplace entry and detention passages, in Spanish. |
+| 5 | Arizona Legislature: A.R.S. 13-2412 | https://azleg.gov/ars/13/02412.htm | The statute on refusing to provide a truthful name when lawfully detained, quoted word for word. |
+| 6 | ILRC: Red Cards / Tarjetas Rojas | https://www.ilrc.org/red-cards-tarjetas-rojas | Link only. The ILRC allows hyperlinks, so no ILRC text or card artwork is copied here. |
+| 7 | ILRC: Printable red card, Spanish (PDF on ilrc.org) | https://www.ilrc.org/sites/default/files/2025-01/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Spanish.pdf | Official printable file. Linked, not rehosted. |
+| 8 | ILRC: Printable red card, English (PDF on ilrc.org) | https://www.ilrc.org/sites/default/files/documents/red_card-self_srv-english.pdf | Official printable file. Linked, not rehosted. |
+| 9 | ILRC: Step-by-Step Family Preparedness Plan (English and Spanish) | https://www.ilrc.org/community-resources/know-your-rights/step-step-family-preparedness-plan | Link only (full plan). No ILRC text is copied here. |
+| 10 | ILRC: Family Preparedness Plan (Spanish download page) | https://www.ilrc.org/community-resources/plan-de-preparaci%C3%B3n-familiar | Spanish family preparedness packet. Linked, not rehosted. |
+| 11 | ICE: Online Detainee Locator System (official government site) | https://locator.ice.gov/odls/ | Link only. Official tool to find a person in ICE custody; no description of its inputs is repeated here. |
+| 12 | Department of Justice (EOIR): automated case information | https://www.justice.gov/eoir/customer-service-initiatives | The court information line 1-800-898-7180, in English and Spanish, 24 hours a day, 7 days a week; it needs the A-number. |
+| 13 | Department of Justice (EOIR): List of Pro Bono Legal Service Providers | https://www.justice.gov/eoir/list-pro-bono-legal-service-providers | Official list by immigration court, including Eloy, Florence, Phoenix and Tucson. EOIR says it does not endorse the organizations. |
+| 14 | Department of Justice (EOIR): Recognized Organizations and Accredited Representatives roster | https://www.justice.gov/eoir/recognition-accreditation-roster-reports | Official roster to check whether a non-lawyer is allowed to represent you. |
+| 15 | Immigration Advocates Network: legal services directory, Arizona | https://www.immigrationadvocates.org/legaldirectory/search?state=AZ | National directory that lists only nonprofits with free or low-cost immigration legal services. |
+| 16 | Florence Project: contact page | https://firrp.org/getinvolved/contact/ | Phone numbers (520) 777-5600 Tucson and (602) 307-1008 Phoenix; clients are people who are detained; no walk-ins. |
+| 17 | Florence Project: frequently asked questions | https://firrp.org/faq/ | The Florence Project does not charge fees; how families can look for a detained person. |
+| 18 | Phoenix Legal Action Network (PLAN): legal services | https://planphx.org/legal-services | Free representation for non-detained, low-income immigrants in Maricopa County or with cases in the Phoenix Immigration Court. |
+| 19 | Phoenix Legal Action Network (PLAN): contact | https://planphx.org/contact | Phone 602-730-1726; office by appointment only. |
+| 20 | Friendly House: Immigration and Legal Services | https://friendlyhouse.org/immigration-legal-services/ | Phone 602-416-7200; 802 S. 1st Ave, Suite 1, Phoenix; describes its services as affordable. |
+| 21 | Catholic Charities Community Services: Immigration Legal Services | https://www.catholiccharitiesaz.org/immigration-legal-services | Phones 602-749-4415 and toll-free 855-316-2229; 5151 N. 19th Avenue, Phoenix; deportation defense and asylum listed; staff includes DOJ accredited representatives. |
+| 22 | International Rescue Committee (IRC) in Phoenix | https://www.rescue.org/united-states/phoenix-az | Phone (602) 433-2440; 4425 West Olive Avenue, Suite 400, Glendale; describes low-cost immigration legal services. |
+| 23 | AZLawHelp (Arizona Bar Foundation) | https://www.azlawhelp.org/ | Phone 866-637-5341 to check if you qualify for free or reduced fee legal help. |
 
 ## Looked for and left out (could not be verified on 2026-11-27)
 
 - National Immigration Law Center (NILC): nilc.org answered every request with HTTP 403 to the automated check, so no NILC text or link is used. A person should open nilc.org in a browser and decide whether to add a link.
 - ILRC English "Family Preparedness Plan" landing page (ilrc.org/resources/family-preparedness-plan): HTTP 403. The ILRC step-by-step plan page and the Spanish plan page loaded and are used instead.
 - Consulate of Mexico in Phoenix and its emergency line: the consulate site sits behind a bot wall and could not be read, so no consulate phone number is on the site. The site only tells people to write down their own consulate's number.
-- State Bar of Arizona phone number for checking a lawyer's license: seen only on the ACLU of Arizona page, not on the State Bar's own page, so it is left out.
-- EOIR hotline number printed on the ACLU of Arizona page, (800) 568-5157: it differs from the number on EOIR's own page, so only EOIR's own number, 1-800-898-7180, is used.
+- State Bar of Arizona phone number, EOIR hotline (800) 568-5157 and the county phone lists printed on the ACLU of Arizona page: not quoted (the quoted passages stop before them). Only EOIR's own number, 1-800-898-7180, is used.
+- ACLU of Arizona answer to "Do I have to tell an agent or officer my name?": not quoted. The Arizona statute is quoted from azleg.gov instead.
 - Arizona State University immigration clinic: the page tried returned 404, left out.
 - Chicanos Por La Causa immigration services: its own page lists only Tucson, Somerton and Nogales offices and says it does not represent people in immigration court, so it is left out of a Phoenix-area list.
 - Arizona court form for delegating parental powers: not found on azcourts.gov tonight, so the site only says to ask a lawyer about a power of attorney.
@@ -57,6 +59,8 @@ Rule: a phone number is on the site only if it was seen on the organization's ow
 
 ## Notes for the reviewer
 
-- The Spanish text was written by an AI and needs a read by a native speaker before the site goes public.
+- The Spanish headings, buttons and notices written for this page were produced by an AI and need a read by a native speaker before the site goes public. The quoted Spanish is the ACLU's own.
 - ILRC red card files are linked on ilrc.org, not copied. ILRC's site says "All rights reserved" and has a reprint permission form.
-- The legal steps paraphrase the ACLU, ACLU of Arizona and ILRC pages in plain words. The sentences to say out loud are quoted from the ACLU page.
+- All legal wording is quoted word for word from the ACLU, the ACLU of Arizona or the Arizona Legislature (azleg.gov), each with the notice its terms require. ILRC is linked only.
+- ACLU terms: https://www.aclu.org/about/aclu-site-user-agreement (text may be copied for noncommercial use, with no editorial changes, no misleading excerpts, and the copyright notice). ACLU of Arizona terms: https://www.acluaz.org/user-agreement/ (same three limits).
+- Not quoted, and still needs a human: the headings, buttons, notices and short lead-ins written for this page (Spanish and English). A native Spanish speaker should read the Spanish ones.

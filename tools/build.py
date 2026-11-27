@@ -20,30 +20,40 @@ SOURCES = {
         "https://www.aclu.org/know-your-rights/immigrants-rights",
         "ACLU: Derechos de los inmigrantes (en inglés, con versión en español)",
         "ACLU: Know Your Rights, Immigrants' Rights",
-        "Steps for ICE or police at the home, stopped in public, stopped in a car, checkpoints, arrest or detention, "
-        "the right to remain silent, refusing searches, warrants signed by a judge, Form I-205, the sentences to say out loud, "
-        "right to a lawyer at your own cost, consulate contact, A-number, fear of return, probation search condition.",
+        "Quoted word for word, whole scenarios, no edits: overview; law enforcement asks about my immigration status; stopped by police or ICE; "
+        "police or ICE at my home; I need a lawyer; stopped in transit; detained while my case is underway; ICE at my place of business with a search warrant or subpoena. "
+        "Linked: all other scenarios.",
     ),
     "aclu_es": (
         "https://www.aclu.org/know-your-rights/derechos-de-los-inmigrantes",
         "ACLU: Conozca sus derechos, derechos de los inmigrantes (en español)",
         "ACLU: Know Your Rights, Immigrants' Rights (Spanish version)",
-        "Spanish version of the ACLU page, linked for Spanish readers.",
+        "Spanish version of the ACLU page, quoted word for word in the Spanish half of this page (the matching scenarios, in ACLU's own Spanish). Linked for all other scenarios.",
     ),
     "acluaz_work": (
         "https://www.acluaz.org/know-your-rights/know-your-rights-during-and-after-workplace-raid/",
         "ACLU de Arizona: Sus derechos antes, durante y después de una redada en el trabajo",
         "ACLU of Arizona: Know Your Rights Before, During, and After a Workplace Raid",
-        "Workplace steps (do not run, ask if free to leave, remain silent, do not sign), when agents may enter a workplace, "
-        "the Arizona rule on giving your name, family plan items (extra keys, trusted person, power of attorney, medications), "
-        "important documents list, warning about notaries.",
+        "Quoted word for word: the \"Plan for your family\", \"Find an attorney\" and \"Know where important documents are\" passages, and the two workplace "
+        "questions about entering a workplace and being detained during a search. Linked: the rest of the page.",
+    ),
+    "acluaz_work_es": (
+        "https://www.acluaz.org/es/know-your-rights/conozca-sus-derechos-antes-durante-y-despues-de-una-redada-en-el-lugar-de-trabajo/",
+        "ACLU de Arizona: Conozca sus derechos antes, durante y después de una redada en el lugar de trabajo (en español)",
+        "ACLU of Arizona: Know Your Rights Before, During, and After a Workplace Raid (Spanish version)",
+        "Quoted word for word: the family plan, important documents, finding an attorney, and workplace entry and detention passages, in Spanish.",
+    ),
+    "ars": (
+        "https://azleg.gov/ars/13/02412.htm",
+        "Legislatura de Arizona: A.R.S. 13-2412 (en inglés)",
+        "Arizona Legislature: A.R.S. 13-2412",
+        "The statute on refusing to provide a truthful name when lawfully detained, quoted word for word.",
     ),
     "ilrc_red": (
         "https://www.ilrc.org/red-cards-tarjetas-rojas",
         "ILRC: Tarjetas Rojas (Red Cards)",
         "ILRC: Red Cards / Tarjetas Rojas",
-        "What red cards are, that they are free, that they can be printed at home, that they are not individual legal advice, "
-        "and the five points printed on the card.",
+        "Link only. The ILRC allows hyperlinks, so no ILRC text or card artwork is copied here.",
     ),
     "ilrc_red_es": (
         "https://www.ilrc.org/sites/default/files/2025-01/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Spanish.pdf",
@@ -61,8 +71,7 @@ SOURCES = {
         "https://www.ilrc.org/community-resources/know-your-rights/step-step-family-preparedness-plan",
         "ILRC: Plan de Preparación Familiar paso a paso (inglés y español)",
         "ILRC: Step-by-Step Family Preparedness Plan (English and Spanish)",
-        "Family plan: back-up caregiver, medical information, passports for children, school emergency contacts, "
-        "ICE detainee locator and A-number, consulate number, who may give immigration legal advice, what to carry.",
+        "Link only (full plan). No ILRC text is copied here.",
     ),
     "ilrc_plan_es": (
         "https://www.ilrc.org/community-resources/plan-de-preparaci%C3%B3n-familiar",
@@ -74,7 +83,7 @@ SOURCES = {
         "https://locator.ice.gov/odls/",
         "ICE: Localizador de personas detenidas (sitio oficial del gobierno)",
         "ICE: Online Detainee Locator System (official government site)",
-        "Official tool to find a person in ICE custody.",
+        "Link only. Official tool to find a person in ICE custody; no description of its inputs is repeated here.",
     ),
     "eoir_phone": (
         "https://www.justice.gov/eoir/customer-service-initiatives",
@@ -224,6 +233,8 @@ def sources(lang, ids, level=3):
     chk = {"es": "revisado el", "en": "checked on"}[lang]
     li = []
     for i in ids:
+        if lang == "en" and i in ("aclu_es", "acluaz_work_es"):
+            continue
         url, es, en, _ = SOURCES[i]
         li.append('<li>%s <span class="chk">(%s <time datetime="%s">%s</time>)</span></li>'
                   % (ext(url, E(es if lang == "es" else en)), chk, CHECKED, CHECKED_TXT[lang]))
@@ -236,6 +247,41 @@ def say(lang, text, meaning=None):
     if lang == "es" and meaning:
         out += '<p class="mean">Significa: %s</p>' % E(meaning)
     return out + "</blockquote>"
+
+
+with open(os.path.join(ROOT, "tools", "quotes.json"), encoding="utf-8") as _f:
+    QUOTES = json.load(_f)
+RETRIEVED_TXT = {"es": "27 de noviembre de 2026", "en": "November 27, 2026"}
+
+
+def quote(lang, key):
+    """A passage copied word for word from its source, with the notice the source's terms require.
+
+    The ACLU and ACLU of Arizona user agreements allow copying text for noncommercial use with no editorial
+    changes, no misleading excerpts, and this notice. Nothing inside q["html"] is ever edited by hand.
+    """
+    q = QUOTES[key]
+    kind = q["kind"]
+    es = lang == "es"
+    url = q["url"]
+    link = '<a href="%s" rel="noopener noreferrer">%s</a>' % (E(url, quote=True), E(url))
+    if kind == "ars":
+        label = "Texto de la ley, sin cambios" if es else "Text of the law, unchanged"
+        body = "<h4>%s</h4>%s" % (E(q["title"]), "".join("<p>%s</p>" % E(p) for p in q["paras"]))
+        notice = ("Arizona Revised Statutes 13-2412. Leído en %s el %s." if es else "Arizona Revised Statutes 13-2412. Read at %s on %s.") % (link, RETRIEVED_TXT[lang])
+    else:
+        who = "American Civil Liberties Union" if kind == "aclu" else "ACLU of Arizona"
+        short = "ACLU" if kind == "aclu" else "ACLU of Arizona"
+        label = ("Cita de la %s, palabra por palabra y sin cambios" if es else "Quoted from the %s, word for word and unchanged") % short
+        title = ""
+        if kind == "aclu" and q.get("title") and not key.endswith("_overview"):
+            title = "<h3>%s</h3>" % E(q["title"])
+        body = title + q["html"]
+        notice = "Copyright %s %s. Originally posted by the %s at %s." % (
+            q["year"], who, "ACLU" if kind == "aclu" else "ACLU of Arizona", link)
+        notice += " " + (("Leído el %s." if es else "Read on %s.") % RETRIEVED_TXT[lang])
+    return '<figure class="quote" lang="%s"><p class="qlabel" lang="%s">%s</p><div class="qbody">%s</div><figcaption>%s</figcaption></figure>' % (
+        q["lang"], lang, E(label), body, notice)
 
 
 def orgs(lang):
@@ -264,14 +310,16 @@ def content(lang):
     A = h.append
 
     # Intro and disclaimer
-    A('<section class="notice" aria-labelledby="%s-imp-h"><h2 id="%s-imp-h">%s</h2><p>%s</p></section>' % (
+    A('<section class="notice" aria-labelledby="%s-imp-h"><h2 id="%s-imp-h">%s</h2><p>%s</p><div class="calls no-print">%s%s</div></section>' % (
         p, p, T("Importante", "Important"),
         T("Esta página da <strong>información general</strong>. <strong>No es consejo legal.</strong> Cada caso es distinto. "
           "Habla con un abogado o con un representante acreditado sobre tu situación. "
           "Esta página no guarda ni recoge ningún dato tuyo. Los enlaces te llevan a otros sitios.",
           "This page gives <strong>general information</strong>. <strong>It is not legal advice.</strong> Every case is different. "
           "Talk to a lawyer or an accredited representative about your situation. "
-          "This page does not save or collect any information about you. Links take you to other sites.")))
+          "This page does not save or collect any information about you. Links take you to other sites."),
+        '<a class="btn primary" href="%s" rel="noopener noreferrer">%s</a>' % (E(SOURCES["aclu_es"][0], True), T("ACLU: Derechos de los inmigrantes (en español)", "ACLU: Immigrants' Rights (Spanish)")),
+        '<a class="btn primary" href="%s" rel="noopener noreferrer" lang="en">%s</a>' % (E(SOURCES["aclu"][0], True), T("ACLU: Immigrants' Rights (en inglés)", "ACLU: Immigrants' Rights (English)"))))
 
     # Jump menu
     items = [
@@ -295,199 +343,77 @@ def content(lang):
           % (p, i, p, i, p, i, title, body))
 
     # 1 Basics
-    sec("basics", T("Lo más importante", "The most important things"),
-        "<p>%s</p><ol class=\"steps\">%s</ol>%s" % (
-            T("Todas las personas en los Estados Unidos tienen ciertos derechos, sin importar su estatus migratorio.",
-              "All people in the United States have certain rights, regardless of immigration status."),
-            "".join("<li>%s</li>" % x for x in (T([
-                "<strong>Mantén la calma.</strong> No corras, no discutas y no te resistas.",
-                "<strong>No abras la puerta</strong> si un agente de inmigración está tocando.",
-                "<strong>Tienes derecho a guardar silencio.</strong> No tienes que contestar preguntas de un agente de inmigración.",
-                "<strong>No firmes nada</strong> sin hablar antes con un abogado.",
-                "Fuera de tu casa, <strong>pregunta si puedes irte</strong>. Si te dicen que sí, vete con calma.",
-                "<strong>No mientas</strong> y no muestres documentos falsos.",
-            ], [
-                "<strong>Stay calm.</strong> Do not run, argue, or resist.",
-                "<strong>Do not open the door</strong> if an immigration agent is knocking.",
-                "<strong>You have the right to remain silent.</strong> You do not have to answer questions from an immigration agent.",
-                "<strong>Do not sign anything</strong> without first speaking to a lawyer.",
-                "Outside your home, <strong>ask if you are free to leave</strong>. If they say yes, leave calmly.",
-                "<strong>Do not lie</strong> and do not show false documents.",
-            ]))),
-            sources(lang, ["ilrc_red", "aclu"] + (["aclu_es"] if es else []))))
+    sec("basics", T("Empieza aquí", "Start here"),
+        "%s%s<div class=\"calls\">%s%s</div>%s" % (
+            quote(lang, "aclu_%s_overview" % lang),
+            quote(lang, "aclu_%s_asks" % lang),
+            '<a class="btn primary" href="%s" rel="noopener noreferrer">%s</a>' % (E(SOURCES["aclu_es"][0], True), T("Todos los escenarios de la ACLU, en español", "All ACLU scenarios, in Spanish")),
+            '<a class="btn primary" href="%s" rel="noopener noreferrer" lang="en">%s</a>' % (E(SOURCES["aclu"][0], True), T("Todos los escenarios de la ACLU, en inglés", "All ACLU scenarios, in English")),
+            sources(lang, ["aclu", "aclu_es"])))
 
     # 2 Home
     sec("home", T("Si ICE o la policía tocan a tu puerta", "If ICE or the police come to your door"),
-        "<ol class=\"steps\">%s</ol>%s%s%s%s" % (
-            "".join("<li>%s</li>" % x for x in (T([
-                "<strong>Mantén la calma y deja la puerta cerrada.</strong> Es más seguro hablar a través de la puerta.",
-                "Pregunta si son agentes de inmigración y a qué vienen. Pide que te muestren su placa o identificación por la ventana o la mirilla.",
-                "Pregunta si tienen una <strong>orden firmada por un juez</strong>. Si dicen que sí, pide que la pasen por debajo de la puerta o la pongan contra la ventana.",
-                "No abras la puerta a menos que te muestren una orden judicial de registro o de arresto que nombre a una persona que vive en tu casa o las áreas de tu domicilio que van a registrar.",
-                "Una orden de deportación (formulario I-205) <strong>no</strong> les permite entrar a una casa sin permiso.",
-                "Si no muestran una orden judicial, deja la puerta cerrada y di la primera frase de abajo.",
-                "Si entran a la fuerza, <strong>no te resistas</strong>. Di la segunda frase de abajo.",
-                "No mientas, no muestres documentos falsos y no firmes nada sin hablar antes con un abogado.",
-            ], [
-                "<strong>Stay calm and keep the door closed.</strong> It is safer to speak through the door.",
-                "Ask if they are immigration agents and what they are there for. Ask them to show a badge or identification through the window or peephole.",
-                "Ask if they have a <strong>warrant signed by a judge</strong>. If they say yes, ask them to slide it under the door or hold it up to a window.",
-                "Do not open the door unless they show you a judicial search or arrest warrant that names a person in your residence or the areas to be searched at your address.",
-                "A warrant of removal or deportation (Form I-205) does <strong>not</strong> allow officers to enter a home without consent.",
-                "If they do not show a judicial warrant, keep the door closed and say the first sentence below.",
-                "If agents force their way in, <strong>do not resist</strong>. Say the second sentence below.",
-                "Do not lie, do not show false documents, and do not sign anything without speaking with a lawyer first.",
-            ]))),
-            "<h3>%s</h3>" % T("Qué decir (en inglés)", "What to say"),
-            say(lang, "I do not consent to your entry.", "No doy permiso para que entren."),
-            say(lang, "I do not consent to your entry or to your search of these premises. I am exercising my right to remain silent. I wish to speak with a lawyer as soon as possible.",
-                "No doy permiso para que entren ni para que registren este lugar. Estoy usando mi derecho a guardar silencio. Quiero hablar con un abogado lo antes posible."),
-            "<p class=\"tip\">%s</p>%s" % (
-                T("Ojo: si la policía tiene una orden de arresto, puede entrar a la casa de la persona nombrada en la orden si cree que está adentro. "
-                  "Si estás en libertad condicional (probation) con una condición de registro, la policía puede entrar a tu casa.",
-                  "Note: if police have an arrest warrant, they are allowed to enter the home of the person on the warrant if they believe that person is inside. "
-                  "If you are on probation with a search condition, law enforcement is allowed to enter your home."),
-                sources(lang, ["aclu"] + (["aclu_es"] if es else []) + ["ilrc_red"]))))
+        quote(lang, "aclu_%s_home" % lang) + sources(lang, ["aclu", "aclu_es"]))
 
     # 3 Public
     sec("public", T("Si te paran en la calle o en un lugar público", "If you are stopped in public"),
-        "<ol class=\"steps\">%s</ol><h3>%s</h3><p>%s</p><h3>%s</h3>%s%s" % (
-            "".join("<li>%s</li>" % x for x in (T([
-                "<strong>Mantén la calma.</strong> No corras, no discutas, no te resistas y no estorbes al agente. Mantén las manos donde las puedan ver.",
-                "<strong>Pregunta si puedes irte.</strong> Si te dicen que sí, vete con calma.",
-                "<strong>Tienes derecho a guardar silencio.</strong> Si quieres usar ese derecho, dilo en voz alta.",
-                "No tienes que contestar dónde naciste, si eres ciudadano o cómo entraste al país. (Hay reglas distintas en la frontera, en aeropuertos y para algunas personas con ciertas visas.)",
-                "No tienes que dar permiso para que te registren a ti o tus cosas. La policía sí puede tocar tu ropa por fuera si sospecha que llevas un arma.",
-                "<strong>No mientas</strong> sobre tu estatus y no muestres documentos falsos.",
-                "Si no eres ciudadano y un agente de inmigración te pide tus documentos de inmigración, debes mostrarlos si los llevas contigo. Si no tienes documentos de inmigración, di que quieres guardar silencio.",
-                "Si te arrestan o te detienen: di que quieres guardar silencio y pide un abogado. No des explicaciones y no firmes nada.",
-            ], [
-                "<strong>Stay calm.</strong> Do not run, argue, resist, or obstruct the officer. Keep your hands where they can see them.",
-                "<strong>Ask if you are free to leave.</strong> If they say yes, leave calmly.",
-                "<strong>You have the right to remain silent.</strong> If you wish to use that right, say so out loud.",
-                "You do not have to answer questions about where you were born, whether you are a U.S. citizen, or how you entered the country. (Separate rules apply at borders and airports, and for some people on certain visas.)",
-                "You do not have to consent to a search of yourself or your belongings. Police may pat down your clothing if they suspect a weapon.",
-                "<strong>Do not lie</strong> about your status and do not show false documents.",
-                "If you are not a U.S. citizen and an immigration agent asks for your immigration papers, you must show them if you have them with you. If you do not have immigration papers, say you want to remain silent.",
-                "If you are arrested or detained: say you wish to remain silent and ask for a lawyer. Do not give explanations and do not sign anything.",
-            ]))),
-            T("Tu nombre, en Arizona", "Your name, in Arizona"),
-            T("Según la ACLU de Arizona: no estás obligado a dar tu nombre a agentes federales como ICE. Si un policía local o estatal que investiga un delito te pide tu nombre, "
-              "la ley de Arizona te obliga a decir tu nombre legal completo y verdadero, pero no tienes que dar más información.",
-              "According to the ACLU of Arizona: you are not required to give your name to federal law enforcement such as ICE. If a local or state police officer who is investigating a crime asks for your name, "
-              "Arizona law requires you to state your true full legal name, but you do not have to give any further information."),
-            T("Qué decir (en inglés)", "What to say"),
-            say(lang, "Am I free to leave?", "¿Puedo irme?") +
-            say(lang, "I am exercising my right to remain silent. I wish to speak with a lawyer.", "Estoy usando mi derecho a guardar silencio. Quiero hablar con un abogado."),
-            sources(lang, ["aclu"] + (["aclu_es"] if es else []) + ["acluaz_work", "ilrc_red"])))
+        "%s<h3>%s</h3><p>%s</p>%s%s" % (
+            quote(lang, "aclu_%s_stopped" % lang),
+            T("La ley de Arizona sobre dar tu nombre", "Arizona law on giving your name"),
+            T("Este es el texto de la ley de Arizona, copiado sin cambios de la página oficial de la Legislatura de Arizona. Está en inglés. "
+              "Si tienes preguntas sobre cómo aplica a ti, habla con un abogado.",
+              "This is the text of the Arizona law, copied without changes from the Arizona Legislature's official page. "
+              "If you have questions about how it applies to you, talk to a lawyer."),
+            quote(lang, "ars"),
+            sources(lang, ["aclu", "aclu_es", "ars"])))
 
     # 4 Car
     sec("car", T("Si te paran en el carro", "If you are stopped in a car"),
-        "<ol class=\"steps\">%s</ol>%s" % (
-            "".join("<li>%s</li>" % x for x in (T([
-                "Detente en un lugar seguro lo más pronto posible. Apaga el motor, prende la luz de adentro, baja la ventana un poco y pon las manos en el volante.",
-                "Si la policía te los pide, muestra tu licencia de manejar, el registro del carro y el comprobante de seguro.",
-                "<strong>El conductor y los pasajeros tienen derecho a guardar silencio.</strong> No tienes que contestar preguntas sobre tu estatus migratorio.",
-                "Si eres pasajero, puedes preguntar si puedes irte. Si te dicen que sí, vete con calma.",
-                "Si un oficial o agente pide revisar tu carro, <strong>puedes decir que no das permiso</strong>. Pero si la policía cree que tu carro tiene pruebas de un delito, puede revisarlo sin tu permiso.",
-                "<strong>Nunca huyas</strong> de un retén (punto de control) de inmigración. En un retén los agentes pueden pararte y hacer preguntas breves.",
-                "No mientas y no muestres documentos falsos.",
-            ], [
-                "Pull over in a safe place as quickly as possible. Turn off the engine, turn on the inside light, open the window part way, and put your hands on the wheel.",
-                "If police ask, show your driver's license, registration, and proof of insurance.",
-                "<strong>Drivers and passengers have the right to remain silent.</strong> You do not have to answer questions about your immigration status.",
-                "If you are a passenger, you can ask if you are free to leave. If the officer says yes, leave calmly.",
-                "If an officer or agent asks to look inside your car, <strong>you can refuse to consent to the search</strong>. But if police believe your car contains evidence of a crime, they can search it without your consent.",
-                "<strong>Never flee</strong> from an immigration checkpoint. At a checkpoint, agents can stop you and ask brief questions.",
-                "Do not lie and do not show false documents.",
-            ]))),
-            sources(lang, ["aclu"] + (["aclu_es"] if es else []))))
+        quote(lang, "aclu_%s_transit" % lang) + sources(lang, ["aclu", "aclu_es"]))
 
     # 5 Work
     sec("work", T("Si inmigración llega a tu trabajo", "If immigration comes to your work"),
-        "<ol class=\"steps\">%s</ol><h3>%s</h3><ul class=\"list\">%s</ul>%s" % (
-            "".join("<li>%s</li>" % x for x in (T([
-                "<strong>No corras.</strong> Puedes preguntar si puedes irte.",
-                "<strong>Tienes derecho a guardar silencio</strong>, aunque tengas miedo.",
-                "Puedes decirle al oficial que quieres hablar con un abogado.",
-                "No tienes que contestar preguntas sobre tu estatus migratorio, dónde naciste o cómo entraste al país.",
-                "<strong>No mientas</strong> y no le des documentos falsos al oficial.",
-                "<strong>No firmes nada</strong> antes de consultar con un abogado.",
-                "Si los agentes tienen una orden para registrar el lugar, pueden pedirte que te quedes en un área mientras hacen el registro.",
-            ], [
-                "<strong>Do not run.</strong> You may ask if you are free to leave.",
-                "<strong>You have the right to remain silent</strong>, even if you are scared.",
-                "You may tell the officer that you wish to speak to a lawyer.",
-                "You do not have to answer questions about your immigration status, where you were born, or how you entered the country.",
-                "<strong>Do not lie</strong> or give the officer fake documents.",
-                "<strong>Do not sign anything</strong> before consulting with a lawyer.",
-                "If the agents have a warrant to search the place, they may ask you to stay in one area while they search.",
-            ]))),
-            T("Bueno saber", "Good to know"),
-            "".join("<li>%s</li>" % x for x in (T([
-                "Los agentes pueden entrar sin orden a las áreas abiertas al público (por ejemplo, el comedor de un restaurante) o si el empleador les da permiso.",
-                "Para entrar a un área que no es pública sin permiso del empleador, la regla general es que necesitan una orden firmada por un juez.",
-                "Antes de que pase algo: habla con compañeros de confianza sobre mantener la calma, no correr y el derecho a guardar silencio. Si tienes sindicato, pregunta si puede ayudar.",
-            ], [
-                "Agents may enter without a warrant in areas open to the public (for example, the dining area of a restaurant) or if the employer gives permission.",
-                "To enter a non-public area without the employer's permission, the general rule is that they need a warrant signed by a judge.",
-                "Before anything happens: talk to trusted co-workers about staying calm, not running, and the right to remain silent. If you belong to a union, ask if it can help.",
-            ]))),
-            sources(lang, ["acluaz_work"])))
+        "%s%s<div class=\"calls\"><a class=\"btn secondary\" href=\"%s\" rel=\"noopener noreferrer\">%s</a></div>%s" % (
+            quote(lang, "aclu_%s_business" % lang),
+            quote(lang, "az_%s_workplace" % lang),
+            E(SOURCES["acluaz_work_es" if es else "acluaz_work"][0], True),
+            T("Leer toda la página de la ACLU de Arizona sobre redadas en el trabajo", "Read the whole ACLU of Arizona page on workplace raids"),
+            sources(lang, ["aclu", "aclu_es", "acluaz_work", "acluaz_work_es"])))
 
     # 6 Detained
     sec("detained", T("Si detienen a alguien de tu familia", "If someone in your family is detained"),
-        "<h3>%s</h3><ul class=\"list\">%s</ul><h3>%s</h3><ul class=\"list\">%s</ul><div class=\"calls\"><a class=\"btn call\" href=\"tel:+18008987180\">%s</a></div>%s" % (
-            T("La persona detenida", "The person who is detained"),
+        "%s%s<h3>%s</h3><ul class=\"list\">%s</ul><div class=\"calls\"><a class=\"btn call\" href=\"tel:+18008987180\">%s</a></div>%s" % (
+            quote(lang, "aclu_%s_detained" % lang),
+            quote(lang, "aclu_%s_lawyer" % lang),
+            T("Buscar a la persona y su caso", "Finding the person and the case"),
             "".join("<li>%s</li>" % x for x in (T([
-                "Tiene derecho a hablar con un abogado, pero el gobierno no tiene que darle uno. Puede pedir una lista de opciones gratuitas o de bajo costo.",
-                "No debe firmar nada ni tomar decisiones sin un abogado.",
-                "Tiene derecho a comunicarse con el consulado de su país.",
-                "Si tiene miedo de regresar a su país, debe decírselo a un oficial y contactar a un abogado de inmediato.",
-                "Debe recordar su número de inmigración (número A) y dárselo a su familia.",
+                "Localizador oficial de personas detenidas de ICE: %s." % ext(SOURCES["ice_locator"][0], "locator.ice.gov"),
+                "Línea automática del Departamento de Justicia (EOIR) sobre casos en la corte de inmigración, en español e inglés, las 24 horas. Pide el número A.",
+                "Organizaciones de %s." % ('<a href="#%s-legal">ayuda legal</a>' % p),
             ], [
-                "Has the right to talk to a lawyer, but the government does not have to provide one. They can ask for a list of free or low-cost options.",
-                "Should not sign anything or make decisions without a lawyer.",
-                "Has the right to contact their country's consulate.",
-                "If they fear returning to their country, they should tell an officer and contact a lawyer immediately.",
-                "Should remember their immigration number (A-number) and give it to their family.",
-            ]))),
-            T("La familia", "The family"),
-            "".join("<li>%s</li>" % x for x in (T([
-                "Busca a la persona en el %s. Necesitas su nombre completo y su país de nacimiento, más su número A o su fecha de nacimiento." % ext(SOURCES["ice_locator"][0], "localizador oficial de personas detenidas de ICE"),
-                "Para saber la fecha y el lugar de la próxima audiencia en la corte de inmigración, llama a la línea automática del Departamento de Justicia. Atiende en español e inglés, las 24 horas, y pide el número A.",
-                "Llama a una organización de %s." % ('<a href="#%s-legal">ayuda legal</a>' % p),
-            ], [
-                "Look for the person in the %s. You need their full name and country of birth, plus their A-number or their date of birth." % ext(SOURCES["ice_locator"][0], "official ICE detainee locator"),
-                "To learn the date and place of the next immigration court hearing, call the Department of Justice automated line. It works in English and Spanish, 24 hours a day, and asks for the A-number.",
-                "Call a %s organization." % ('<a href="#%s-legal">legal help</a>' % p),
+                "Official ICE detainee locator: %s." % ext(SOURCES["ice_locator"][0], "locator.ice.gov"),
+                "Department of Justice (EOIR) automated line about immigration court cases, in English and Spanish, 24 hours a day. It asks for the A-number.",
+                "%s organizations." % ('<a href="#%s-legal">Legal help</a>' % p),
             ]))),
             T("Llamar al 1-800-898-7180 (corte de inmigración)", "Call 1-800-898-7180 (immigration court)"),
-            sources(lang, ["aclu", "ice_locator", "eoir_phone", "firrp_faq", "ilrc_plan"])))
+            sources(lang, ["aclu", "aclu_es", "ice_locator", "eoir_phone"])))
 
-    # 7 Red cards
+    # 7 Red cards (links only: ILRC allows hyperlinks, not copies)
     sec("cards", T("Tarjetas Rojas (Red Cards)", "Red Cards (Tarjetas Rojas)"),
-        "<div class=\"redcard\"><p>%s</p><p>%s</p></div><div class=\"calls\">%s%s%s</div><p class=\"hint\">%s</p>%s" % (
-            T("Las Tarjetas Rojas del Immigrant Legal Resource Center (ILRC) te ayudan a usar tus derechos. Un lado te recuerda tus derechos en español. "
-              "El otro lado, en inglés, es para mostrarlo o dárselo al agente: lo puedes pasar por debajo de la puerta o mostrarlo por la ventana.",
-              "Red Cards from the Immigrant Legal Resource Center (ILRC) help you use your rights. One side reminds you of your rights. "
-              "The other side, in English, is for showing or handing to the agent: you can slide it under the door or show it through the window."),
-            T("<strong>Son gratis.</strong> Nunca pagues por ellas. Puedes imprimirlas en casa, en una biblioteca o en una copiadora.",
-              "<strong>They are free.</strong> Never pay for them. You can print them at home, at a library, or at a copy shop."),
-            '<a class="btn primary" href="%s" rel="noopener noreferrer">%s</a>' % (E(SOURCES["ilrc_red_es"][0], True), T("Imprimir tarjeta en español (PDF del ILRC)", "Print card in Spanish (ILRC PDF)")),
-            '<a class="btn primary" href="%s" rel="noopener noreferrer">%s</a>' % (E(SOURCES["ilrc_red_en"][0], True), T("Imprimir tarjeta en inglés (PDF del ILRC)", "Print card in English (ILRC PDF)")),
-            '<a class="btn secondary" href="%s" rel="noopener noreferrer">%s</a>' % (E(SOURCES["ilrc_red"][0], True), T("Ver todas las tarjetas e idiomas en ilrc.org", "See all cards and languages on ilrc.org")),
-            T("Estos botones abren archivos en el sitio oficial del ILRC. Esta página no copia ni guarda sus archivos.",
-              "These buttons open files on the official ILRC site. This page does not copy or host their files."),
+        "<div class=\"redcard\"><p>%s</p></div><div class=\"calls\">%s%s%s</div><p class=\"hint\">%s</p>%s" % (
+            T("Las Tarjetas Rojas son un recurso del Immigrant Legal Resource Center (ILRC). Los archivos y las instrucciones están en el sitio del ILRC.",
+              "Red Cards are a resource from the Immigrant Legal Resource Center (ILRC). The files and the instructions are on the ILRC site."),
+            '<a class="btn primary" href="%s" rel="noopener noreferrer">%s</a>' % (E(SOURCES["ilrc_red_es"][0], True), T("Tarjeta en español (PDF del ILRC)", "Card in Spanish (ILRC PDF)")),
+            '<a class="btn primary" href="%s" rel="noopener noreferrer">%s</a>' % (E(SOURCES["ilrc_red_en"][0], True), T("Tarjeta en inglés (PDF del ILRC)", "Card in English (ILRC PDF)")),
+            '<a class="btn secondary" href="%s" rel="noopener noreferrer">%s</a>' % (E(SOURCES["ilrc_red"][0], True), T("Todas las tarjetas e idiomas en ilrc.org", "All cards and languages on ilrc.org")),
+            T("Estos botones abren archivos en el sitio oficial del ILRC. Esta página no copia ni guarda sus archivos ni su texto.",
+              "These buttons open files on the official ILRC site. This page does not copy or host their files or their text."),
             sources(lang, ["ilrc_red", "ilrc_red_es", "ilrc_red_en"])))
 
     # 8 Legal help
     sec("legal", T("Ayuda legal gratuita o de bajo costo en Arizona", "Free or low-cost legal help in Arizona"),
-        "<p class=\"tip\">%s</p><h3>%s</h3>%s<h3>%s</h3><ul class=\"list\">%s</ul>%s" % (
-            T("<strong>Cuidado con el fraude.</strong> En los Estados Unidos un «notario» no es abogado. Solo un abogado con licencia o un representante acreditado por el "
-              "Departamento de Justicia (que trabaja en una organización reconocida) puede darte consejo legal de inmigración.",
-              "<strong>Watch out for fraud.</strong> In the United States a \"notario\" or notary is not a lawyer. Only a licensed attorney or a Department of Justice "
-              "accredited representative (who works at a recognized organization) can give you immigration legal advice."),
+        "%s<h3>%s</h3>%s<h3>%s</h3><ul class=\"list\">%s</ul>%s" % (
+            quote(lang, "az_%s_attorney" % lang),
             T("Organizaciones", "Organizations"),
             orgs(lang),
             T("Listas oficiales y directorios", "Official lists and directories"),
@@ -500,99 +426,36 @@ def content(lang):
                 "%s, by court (Eloy, Florence, Phoenix, Tucson). The government says it does not endorse any organization on the list." % ext(SOURCES["eoir_probono"][0], "Department of Justice list of pro bono legal service providers"),
                 "%s: to confirm that a non-lawyer is authorized." % ext(SOURCES["eoir_roster"][0], "Recognized organizations and accredited representatives"),
             ]))),
-            sources(lang, ["ian", "eoir_probono", "eoir_roster", "ilrc_plan", "acluaz_work"])))
+            sources(lang, ["acluaz_work", "acluaz_work_es", "ian", "eoir_probono", "eoir_roster"])))
 
-    # 9 Family plan
-    def checks(xs):
-        return '<ul class="check">%s</ul>' % "".join("<li>%s</li>" % x for x in xs)
+    # 9 Family plan: ACLU of Arizona text, plus a link to the ILRC plan
     sec("plan", T("Plan para tu familia", "Family plan"),
-        "<p>%s</p><h3>%s</h3>%s<h3>%s</h3>%s<h3>%s</h3>%s<div class=\"calls\">%s</div>%s" % (
-            T("Tener un plan baja el estrés de lo inesperado. Ojalá nunca lo necesites. Puedes imprimir esta página y marcar cada cosa.",
-              "Having a plan lowers the stress of the unexpected. We hope you never need it. You can print this page and check off each item."),
-            T("Lista del plan familiar", "Family plan checklist"),
-            checks(T([
-                "Elegir a un adulto de confianza que cuide a mis hijos si yo no puedo, y hablar con esa persona.",
-                "Poner al día los contactos de emergencia en la escuela y la guardería.",
-                "Escribir las condiciones médicas, alergias, medicinas, doctor y seguro de mis hijos, y darle una copia a la persona que los va a cuidar.",
-                "Memorizar los teléfonos de mi familia y de mi abogado.",
-                "Darle un juego extra de llaves a alguien de confianza.",
-                "Elegir a alguien de confianza que pueda tomar decisiones por mí si me detienen. Preguntarle a un abogado si me conviene una carta poder (power of attorney).",
-                "Asegurarme de que mi familia sepa mi número A, si tengo uno, y cómo usar el localizador de ICE.",
-                "Anotar el teléfono del consulado de mi país más cercano.",
-                "Explicarles el plan a mis hijos con calma: quién los va a cuidar y que van a estar bien.",
-                "Practicar en familia: no abrir la puerta, guardar silencio, mostrar la Tarjeta Roja.",
-                "Pedir una consulta con un proveedor legal de confianza para saber qué opciones tengo.",
-            ], [
-                "Choose a trusted adult to care for my children if I cannot, and talk with that person.",
-                "Update emergency contacts at school and day care.",
-                "Write down my children's medical conditions, allergies, medications, doctor and insurance, and give a copy to the person who will care for them.",
-                "Memorize the phone numbers of my family and my lawyer.",
-                "Give an extra set of keys to someone I trust.",
-                "Choose someone I trust to make decisions for me if I am detained. Ask a lawyer whether a power of attorney makes sense for me.",
-                "Make sure my family knows my A-number, if I have one, and how to use the ICE locator.",
-                "Write down the phone number of my country's nearest consulate.",
-                "Calmly explain the plan to my children: who will care for them and that they will be okay.",
-                "Practice as a family: do not open the door, remain silent, show the Red Card.",
-                "Get a consultation with a trusted legal provider to learn what options I have.",
-            ])),
-            T("Documentos importantes para juntar", "Important documents to gather"),
-            "<p>%s</p>%s" % (
-                T("Guárdalos en un lugar seguro al que tu familia pueda llegar fácilmente. Dale copias a una persona de confianza.",
-                  "Keep them in a secure place your family can reach easily. Give copies to a person you trust."),
-                checks(T([
-                    "Actas de nacimiento.",
-                    "Acta de matrimonio.",
-                    "Pasaportes (también los de mis hijos).",
-                    "Papeles de la corte.",
-                    "Copia de todos los papeles que he presentado a inmigración.",
-                    "Mi número A, si tengo uno.",
-                    "Información médica y de la escuela de mis hijos.",
-                    "Lista de todos los abogados que me han representado y cómo contactarlos.",
-                ], [
-                    "Birth certificates.",
-                    "Marriage certificate.",
-                    "Passports (my children's too).",
-                    "Court papers.",
-                    "A copy of all papers I have filed with immigration.",
-                    "My A-number, if I have one.",
-                    "My children's medical and school information.",
-                    "A list of all the lawyers who have represented me and how to contact them.",
-                ]))),
-            T("Qué llevar contigo y qué no", "What to carry and what not to carry"),
-            "<ul class=\"list\">%s</ul>" % "".join("<li>%s</li>" % x for x in (T([
-                "Lleva una Tarjeta Roja.",
-                "Lleva el teléfono de alguien que pueda poner tu plan en marcha y llamar a tu abogado.",
-                "Si tienes estatus legal, puedes llevar tu permiso de trabajo o tarjeta de residencia válidos.",
-                "<strong>No lleves</strong> documentos de identidad o de inmigración falsos.",
-                "<strong>No lleves</strong> documentos sobre tu país de origen. Pregúntale a un representante legal local qué documentos son seguros para llevar.",
-            ], [
-                "Carry a Red Card.",
-                "Carry the phone number of someone who can put your plan into action and call your lawyer.",
-                "If you have lawful status, you can carry your valid work permit or green card.",
-                "<strong>Do not carry</strong> false identity or immigration documents.",
-                "<strong>Do not carry</strong> documents about your country of origin. Ask a local legal representative which documents are safe to carry.",
-            ]))),
+        "%s%s<div class=\"calls\">%s</div>%s" % (
+            quote(lang, "az_%s_plan" % lang),
+            quote(lang, "az_%s_docs" % lang),
             '<a class="btn primary" href="%s" rel="noopener noreferrer">%s</a>' % (
                 E(SOURCES["ilrc_plan_es" if es else "ilrc_plan"][0], True),
                 T("Plan de Preparación Familiar completo (ILRC)", "Full Family Preparedness Plan (ILRC)")),
-            sources(lang, ["ilrc_plan", "ilrc_plan_es", "acluaz_work", "aclu"])))
+            sources(lang, ["acluaz_work", "acluaz_work_es", "ilrc_plan", "ilrc_plan_es"])))
 
     # 10 About
     sec("about", T("Sobre esta página", "About this page"),
         "<ul class=\"list\">%s</ul><div class=\"calls no-print\"><button type=\"button\" class=\"btn primary big js-print\">%s</button></div>" % (
             "".join("<li>%s</li>" % x for x in (T([
-                "<strong>No es consejo legal.</strong> Es información general tomada de organizaciones establecidas y de sitios oficiales. Las leyes y las prácticas cambian. Habla con un abogado o un representante acreditado sobre tu caso.",
+                "<strong>No es consejo legal.</strong> Es información general citada de organizaciones establecidas y de sitios oficiales. Las leyes y las prácticas cambian. Habla con un abogado o un representante acreditado sobre tu caso.",
                 "<strong>No recogemos datos.</strong> Esta página no tiene analíticas, anuncios, cookies, formularios ni cuentas, y no guarda nada.",
                 "<strong>Los enlaces salen de este sitio.</strong> Los otros sitios tienen sus propias reglas de privacidad. Los botones de teléfono usan la aplicación de llamadas de tu teléfono.",
                 "Cada enlace y cada teléfono se revisó el <time datetime=\"%s\">%s</time> en la página oficial de cada organización. Antes de ir a una oficina, llama para confirmar." % (CHECKED, CHECKED_TXT["es"]),
+                "Los textos de la ACLU y de la ACLU de Arizona se copian <strong>palabra por palabra y sin cambios</strong>, con el aviso de derechos de autor que piden esos sitios, para uso no comercial. El texto de la ley de Arizona se copia del sitio de la Legislatura. Los títulos, botones y avisos que no están en un recuadro de cita son de esta página.",
                 "Esta página no está afiliada a ninguna de las organizaciones nombradas ni al gobierno.",
                 "En un teléfono o computadora compartidos, el historial del navegador puede mostrar que visitaste esta página.",
                 "Es gratis y siempre lo será.",
             ], [
-                "<strong>This is not legal advice.</strong> It is general information taken from established organizations and official sites. Laws and practices change. Talk to a lawyer or an accredited representative about your case.",
+                "<strong>This is not legal advice.</strong> It is general information quoted from established organizations and official sites. Laws and practices change. Talk to a lawyer or an accredited representative about your case.",
                 "<strong>We collect no data.</strong> This page has no analytics, ads, cookies, forms or accounts, and it saves nothing.",
                 "<strong>Links leave this site.</strong> Other sites have their own privacy rules. Phone buttons use your phone's calling app.",
                 "Every link and phone number was checked on <time datetime=\"%s\">%s</time> on each organization's official page. Before going to an office, call to confirm." % (CHECKED, CHECKED_TXT["en"]),
+                "Text from the ACLU and the ACLU of Arizona is copied <strong>word for word and unchanged</strong>, with the copyright notice those sites require, for noncommercial use. The Arizona law text is copied from the Legislature's site. Headings, buttons and notices that are not inside a quote box are this page's own.",
                 "This page is not affiliated with any of the organizations named or with the government.",
                 "On a shared phone or computer, the browser history can show that you visited this page.",
                 "It is free and always will be.",
@@ -739,16 +602,18 @@ def sources_md():
             "The ILRC step-by-step plan page and the Spanish plan page loaded and are used instead.",
             "- Consulate of Mexico in Phoenix and its emergency line: the consulate site sits behind a bot wall and could not be read, so no consulate phone number is on the site. "
             "The site only tells people to write down their own consulate's number.",
-            "- State Bar of Arizona phone number for checking a lawyer's license: seen only on the ACLU of Arizona page, not on the State Bar's own page, so it is left out.",
-            "- EOIR hotline number printed on the ACLU of Arizona page, (800) 568-5157: it differs from the number on EOIR's own page, so only EOIR's own number, 1-800-898-7180, is used.",
+            "- State Bar of Arizona phone number, EOIR hotline (800) 568-5157 and the county phone lists printed on the ACLU of Arizona page: not quoted (the quoted passages stop before them). Only EOIR's own number, 1-800-898-7180, is used.",
+            "- ACLU of Arizona answer to \"Do I have to tell an agent or officer my name?\": not quoted. The Arizona statute is quoted from azleg.gov instead.",
             "- Arizona State University immigration clinic: the page tried returned 404, left out.",
             "- Chicanos Por La Causa immigration services: its own page lists only Tucson, Somerton and Nogales offices and says it does not represent people in immigration court, so it is left out of a Phoenix-area list.",
             "- Arizona court form for delegating parental powers: not found on azcourts.gov tonight, so the site only says to ask a lawyer about a power of attorney.",
             "- Detention facility phone numbers shown on the Florence Project FAQ: that page still uses old facility names, so they are left out.",
             "", "## Notes for the reviewer", "",
-            "- The Spanish text was written by an AI and needs a read by a native speaker before the site goes public.",
+            "- The Spanish headings, buttons and notices written for this page were produced by an AI and need a read by a native speaker before the site goes public. The quoted Spanish is the ACLU's own.",
             "- ILRC red card files are linked on ilrc.org, not copied. ILRC's site says \"All rights reserved\" and has a reprint permission form.",
-            "- The legal steps paraphrase the ACLU, ACLU of Arizona and ILRC pages in plain words. The sentences to say out loud are quoted from the ACLU page.",
+            "- All legal wording is quoted word for word from the ACLU, the ACLU of Arizona or the Arizona Legislature (azleg.gov), each with the notice its terms require. ILRC is linked only.",
+            "- ACLU terms: https://www.aclu.org/about/aclu-site-user-agreement (text may be copied for noncommercial use, with no editorial changes, no misleading excerpts, and the copyright notice). ACLU of Arizona terms: https://www.acluaz.org/user-agreement/ (same three limits).",
+            "- Not quoted, and still needs a human: the headings, buttons, notices and short lead-ins written for this page (Spanish and English). A native Spanish speaker should read the Spanish ones.",
             ""]
     return "\n".join(out)
 
