@@ -5,6 +5,7 @@ Run:  python3 tools/build.py
 No dependencies. The output files are committed, so the site itself has no build step.
 Every fact people may act on lives in SOURCES or ORGS below, with the page it was read on.
 """
+import json
 import html
 import os
 
@@ -600,31 +601,80 @@ def content(lang):
     return "\n".join(h)
 
 
+TEXT = {
+    "title": "Conoce tus derechos en Arizona: qué hacer y ayuda legal",
+    "title_en": "Know your rights in Arizona: what to do and legal help",
+    "desc": "Qué hacer si llega inmigración y dónde encontrar ayuda legal gratuita en Arizona (Tempe y Phoenix). Gratis, sin anuncios, sin rastreo. Español e inglés.",
+    "desc_en": "What to do if immigration comes and where to find free or low-cost legal help in Arizona (Tempe and Phoenix). Free, no ads, no tracking. Spanish and English.",
+    "imgalt": "Conoce tus derechos, Arizona: qué hacer y dónde encontrar ayuda. Know your rights and where to get help. Gratis, sin rastreo. Free, no tracking.",
+}
+
+
+def jsonld_graph():
+    # Only what is visible on the page. No person is named; the publisher is the project itself.
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "Organization", "@id": SITE_URL + "#org", "name": "Conoce tus derechos · Arizona",
+             "url": SITE_URL, "logo": SITE_URL + "apple-touch-icon.png",
+             "description": "Free, ad-free, zero-tracking know-your-rights and legal-help information page for Arizona, in Spanish and English."},
+            {"@type": "WebSite", "@id": SITE_URL + "#website", "url": SITE_URL,
+             "name": "Conoce tus derechos · Arizona", "description": TEXT["desc"],
+             "inLanguage": ["es", "en"], "publisher": {"@id": SITE_URL + "#org"}},
+            {"@type": "WebPage", "@id": SITE_URL + "#webpage", "url": SITE_URL, "name": TEXT["title"],
+             "description": TEXT["desc"], "inLanguage": ["es", "en"], "isPartOf": {"@id": SITE_URL + "#website"},
+             "publisher": {"@id": SITE_URL + "#org"}, "dateModified": CHECKED,
+             "primaryImageOfPage": {"@type": "ImageObject", "url": SITE_URL + "og-image.png", "width": 1200, "height": 630},
+             "about": {"@type": "Thing", "name": "Know your rights and free or low-cost immigration legal help in Arizona"}},
+        ],
+    }
+
+
 def page():
     foot_es = ("Este sitio no tiene analíticas y no guarda nada. Está alojado en GitHub Pages, que puede guardar registros estándar de visitas "
                "que nosotros no podemos ver ni controlar. Nosotros no agregamos nada.")
     foot_en = ("This site has no analytics and saves nothing. It is hosted on GitHub Pages, which may keep standard visit logs "
                "that we cannot see or control. We add nothing.")
-    desc = "Qué hacer si llega inmigración y dónde encontrar ayuda legal en Arizona. Gratis, sin anuncios, sin rastreo. Español e inglés."
+    desc = TEXT["desc"]
+    title = TEXT["title"]
+    imgalt = TEXT["imgalt"]
+    jsonld = json.dumps(jsonld_graph(), ensure_ascii=False, indent=1).replace("</", "<\\/")
     return """<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Conoce tus derechos · Arizona</title>
+<title>{title}</title>
 <meta name="description" content="{desc}">
-<meta property="og:title" content="Conoce tus derechos · Arizona / Know your rights">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="{site}">
+<link rel="alternate" hreflang="es" href="{site}">
+<link rel="alternate" hreflang="en" href="{site}">
+<link rel="alternate" hreflang="x-default" href="{site}">
+<meta property="og:site_name" content="Conoce tus derechos · Arizona">
+<meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="{site}og-image.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Conoce tus derechos, Arizona: qué hacer y dónde encontrar ayuda. Know your rights and where to get help. Gratis, sin rastreo. Free, no tracking.">
+<meta property="og:image:alt" content="{imgalt}">
 <meta property="og:url" content="{site}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_US">
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{site}og-image.png">
+<meta name="twitter:image:alt" content="{imgalt}">
+<meta name="theme-color" content="#0b4f8a">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<script type="application/ld+json">{jsonld}</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <link rel="stylesheet" href="style.css">
 <noscript><link rel="stylesheet" href="noscript.css"></noscript>
@@ -638,8 +688,8 @@ def page():
     <h1 class="en" lang="en">Know your rights <span class="where">Arizona</span></h1>
   </div>
   <div class="langs no-print" role="group" aria-label="Idioma / Language">
-    <button type="button" id="lang-es" data-lang="es" lang="es" aria-label="Español" aria-pressed="true">ES</button>
-    <button type="button" id="lang-en" data-lang="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+    <button type="button" id="lang-es" data-lang="es" lang="es" aria-label="ES, Español" aria-pressed="true">ES</button>
+    <button type="button" id="lang-en" data-lang="en" lang="en" aria-label="EN, English" aria-pressed="false">EN</button>
   </div>
 </header>
 
@@ -664,7 +714,7 @@ def page():
 <script src="app.js"></script>
 </body>
 </html>
-""".format(desc=desc, site=SITE_URL, es=content("es"), en=content("en"), foot_es=foot_es, foot_en=foot_en)
+""".format(desc=desc, title=title, imgalt=imgalt, jsonld=jsonld, site=SITE_URL, es=content("es"), en=content("en"), foot_es=foot_es, foot_en=foot_en)
 
 
 def sources_md():

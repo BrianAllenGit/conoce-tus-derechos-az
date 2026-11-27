@@ -32,6 +32,7 @@ Before publishing: have a native Spanish speaker read the Spanish, and have some
 - No sideways scroll at 320px, 375px or 768px. Large text, one column, tap targets of 56px.
 - Works without JavaScript: both languages are shown.
 - Screenshots and the audit report are in [docs/screenshots](docs/screenshots).
+- Website definition of done: all items checked with evidence in [docs/DEFINITION-OF-DONE.md](docs/DEFINITION-OF-DONE.md). Lighthouse mobile 100/100/100/100.
 
 ## Run it
 

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brianallengit.github.io/conoce-tus-derechos-az/sitemap.xml

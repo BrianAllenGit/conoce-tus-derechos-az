@@ -1,0 +1,29 @@
+# Conoce tus derechos · Arizona
+
+> A free, ad-free, zero-tracking, one-page guide in Spanish and English for immigrants and families in Arizona (Tempe, Phoenix and nearby). It gives general information, not legal advice, and lists free or low-cost immigration legal help in Arizona. Every fact on the page is linked to the organization it was read on, with the date it was checked (2026-11-27).
+
+## What it is
+- General information on what to do if immigration agents or police come to your door, stop you in public or in a car, come to your work, or detain someone in your family.
+- Links to the Immigrant Legal Resource Center (ILRC) Red Cards, a family preparedness plan, and a printable family plan checklist.
+- A list of free or low-cost immigration legal help in Arizona, with a note about notary fraud.
+
+## Who it is for
+- People in Arizona who are worried about immigration enforcement, and their families. Spanish first, English available with the ES/EN switch.
+
+## How to use it
+- Open the page, pick Spanish or English, and use the menu buttons to jump to a situation. The page can be printed. It works without JavaScript (both languages are shown). It stores nothing and has no analytics.
+- The English view is the same page at ?lang=en.
+
+## Key links
+- Page: https://brianallengit.github.io/conoce-tus-derechos-az/
+- English view: https://brianallengit.github.io/conoce-tus-derechos-az/?lang=en
+
+## Sources used
+- ACLU: https://www.aclu.org/know-your-rights/immigrants-rights
+- ACLU of Arizona: https://www.acluaz.org/know-your-rights/know-your-rights-during-and-after-workplace-raid/
+- ILRC Red Cards: https://www.ilrc.org/red-cards-tarjetas-rojas
+- U.S. Department of Justice, EOIR pro bono list: https://www.justice.gov/eoir/list-pro-bono-legal-service-providers
+- ICE Online Detainee Locator: https://locator.ice.gov/odls/
+
+## Limits
+- Not legal advice. Laws and practices change. Talk to a licensed attorney or a DOJ-accredited representative about your own case.

@@ -1,7 +1,11 @@
 (function () {
   'use strict';
   // Nothing is stored and nothing is sent. The language choice lives only in the page address (?lang=en).
-  var TITLES = { es: 'Conoce tus derechos · Arizona', en: 'Know your rights · Arizona' };
+  var TITLES = { es: 'Conoce tus derechos en Arizona: qué hacer y ayuda legal', en: 'Know your rights in Arizona: what to do and legal help' };
+  var DESCS = {
+    es: 'Qué hacer si llega inmigración y dónde encontrar ayuda legal gratuita en Arizona (Tempe y Phoenix). Gratis, sin anuncios, sin rastreo. Español e inglés.',
+    en: 'What to do if immigration comes and where to find free or low-cost legal help in Arizona (Tempe and Phoenix). Free, no ads, no tracking. Spanish and English.'
+  };
   var root = document.documentElement;
 
   function current() { return root.classList.contains('en') ? 'en' : 'es'; }
@@ -11,6 +15,8 @@
     root.classList.toggle('en', lang === 'en');
     root.lang = lang;
     document.title = TITLES[lang];
+    var md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute('content', DESCS[lang]);
     document.getElementById('lang-es').setAttribute('aria-pressed', String(lang === 'es'));
     document.getElementById('lang-en').setAttribute('aria-pressed', String(lang === 'en'));
     try {

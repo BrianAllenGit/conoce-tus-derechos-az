@@ -77,3 +77,5 @@ footer{max-width:760px;margin:0 auto;padding:8px 16px 32px;font-size:1.05rem}
   a[href^="http"]::after{content:" (" attr(href) ")";font-weight:400;font-size:9pt;word-break:break-all}
   .src{font-size:9pt}
 }
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media (forced-colors:active){.langs button{border-color:ButtonText}.langs button{background:ButtonFace;color:ButtonText}.langs button[aria-pressed="true"]{border:5px double ButtonText;text-decoration:underline}.top{border-bottom:2px solid CanvasText}.panel,.notice{border-color:CanvasText}}
