@@ -8,7 +8,7 @@ Status: private draft. Not published. Planned address once shipped: https://bria
 
 - The ACLU's own know-your-rights text (English, and the ACLU's own Spanish page) for when immigration agents or police come to the door, stop you in public, stop your car, or come to your work, and when someone is detained. It is quoted word for word, with the ACLU's required copyright notice. Prominent links go to the ACLU Immigrants' Rights pages in English and Spanish.
 - Passages from the ACLU of Arizona workplace page (family plan, important documents, finding an attorney, entering a workplace) quoted the same way, and the text of Arizona law A.R.S. 13-2412 copied from azleg.gov.
-- Links to the official ILRC Red Cards (linked on ilrc.org, not copied here).
+- Links to the official ILRC Red Cards (linked on ilrc.org, not copied here), including an "Other languages" list of 25 ILRC card PDFs.
 - Free or low-cost immigration legal help in Arizona, each with a phone number read on the organization's own page.
 - A clear note: general information, not legal advice.
 

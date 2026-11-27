@@ -53,7 +53,7 @@ SOURCES = {
         "https://www.ilrc.org/red-cards-tarjetas-rojas",
         "ILRC: Tarjetas Rojas (Red Cards)",
         "ILRC: Red Cards / Tarjetas Rojas",
-        "Link only. The ILRC allows hyperlinks, so no ILRC text or card artwork is copied here.",
+        "Link only. The ILRC allows hyperlinks, so no ILRC text or card artwork is copied here. Also the source of the \"Other languages\" list: each language links to its printable card PDF on ilrc.org.",
     ),
     "ilrc_red_es": (
         "https://www.ilrc.org/sites/default/files/2025-01/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Spanish.pdf",
@@ -302,6 +302,51 @@ def orgs(lang):
     return "".join(out)
 
 
+# Official ILRC red cards in other languages: (lang tag, rtl, name in its own script, English name, PDF on ilrc.org).
+# Order follows the Phoenix priority list. Only ILRC's own files are linked, never copied.
+# Each PDF was downloaded on 2026-11-27 and its card text checked to be in the labeled language.
+# Lingala was left out: ILRC's "Lingala" PDF carries Kinyarwanda text.
+LANG_CARDS = [
+    ('ar', 1, 'العربية', 'Arabic', 'https://www.ilrc.org/sites/default/files/documents/red_card-self_srv-arabic.pdf'),
+    ('vi', 0, 'Tiếng Việt', 'Vietnamese', 'https://www.ilrc.org/sites/default/files/2025-09/Artwork-for-Printing-Your-Own-Red-Cards-Vietnamese.pdf'),
+    ('zh-Hans', 0, '中文 简体', 'Chinese, Simplified', 'https://www.ilrc.org/sites/default/files/2025-06/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Chinese%20%28Simplified%29.pdf'),
+    ('zh-Hant', 0, '中文 繁體', 'Chinese, Traditional', 'https://www.ilrc.org/sites/default/files/resources/red_card-self_srv-chinese.pdf'),
+    ('yue-Hant', 0, '廣東話', 'Cantonese', 'https://www.ilrc.org/sites/default/files/2025-10/Artwork-for-Printing-Your-Own-Red-Cards-Cantonese.pdf'),
+    ('sw', 0, 'Kiswahili', 'Swahili', 'https://www.ilrc.org/sites/default/files/2025-06/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Swahili.pdf'),
+    ('so', 0, 'Soomaali', 'Somali', 'https://www.ilrc.org/sites/default/files/2025-06/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Somali.pdf'),
+    ('kar', 0, 'ကညီ', 'Karen', 'https://www.ilrc.org/sites/default/files/2025-06/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Karen.pdf'),
+    ('my', 0, 'မြန်မာဘာသာ', 'Burmese', 'https://www.ilrc.org/sites/default/files/2025-09/Artwork-for-Printing-Your-Own-Red-Cards-Burmese.pdf'),
+    ('prs', 1, 'دری', 'Dari', 'https://www.ilrc.org/sites/default/files/2025-06/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Dari.pdf'),
+    ('ps', 1, 'پښتو', 'Pashto', 'https://www.ilrc.org/sites/default/files/2024-12/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Pashto.pdf'),
+    ('fa', 1, 'فارسی', 'Farsi', 'https://www.ilrc.org/sites/default/files/2025-09/Artwork-for-Printing-Your-Own-Red-Cards-Farsi.pdf'),
+    ('tl', 0, 'Tagalog', 'Tagalog', 'https://www.ilrc.org/sites/default/files/2025-02/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Tagalog.pdf'),
+    ('ko', 0, '한국어', 'Korean', 'https://www.ilrc.org/sites/default/files/2025-02/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Korean.pdf'),
+    ('hi', 0, 'हिन्दी', 'Hindi', 'https://www.ilrc.org/sites/default/files/2025-08/Artwork-for-Printing-Your-Own-Red-Cards-Hindi.pdf'),
+    ('pa', 0, 'ਪੰਜਾਬੀ', 'Punjabi', 'https://www.ilrc.org/sites/default/files/2025-03/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Punjabi.pdf'),
+    ('am', 0, 'አማርኛ', 'Amharic', 'https://www.ilrc.org/sites/default/files/2025-03/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Amharic_0.pdf'),
+    ('fr', 0, 'Français', 'French', 'https://www.ilrc.org/sites/default/files/documents/red_card-self_srv-french-20190603.pdf'),
+    ('ti', 0, 'ትግርኛ', 'Tigrinya', 'https://www.ilrc.org/sites/default/files/2025-02/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Tigrinya.pdf'),
+    ('om', 0, 'Afaan Oromoo', 'Oromo', 'https://www.ilrc.org/sites/default/files/2025-06/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Oromo.pdf'),
+    ('rw', 0, 'Ikinyarwanda', 'Kinyarwanda', 'https://www.ilrc.org/sites/default/files/2025-09/Artwork-for-Printing-Your-Own-Red-Cards-Kinyarwanda.pdf'),
+    ('ur', 1, 'اردو', 'Urdu', 'https://www.ilrc.org/sites/default/files/2025-06/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Urdu.pdf'),
+    ('ta', 0, 'தமிழ்', 'Tamil', 'https://www.ilrc.org/sites/default/files/2025-08/Artwork-for-Printing-Your-Own-Red-Cards-Tamil.pdf'),
+    ('bn', 0, 'বাংলা', 'Bangla', 'https://www.ilrc.org/sites/default/files/2025-09/Artwork-for-Printing-Your-Own-Red-Cards-Bangla.pdf'),
+    ('ne', 0, 'नेपाली', 'Nepali', 'https://www.ilrc.org/sites/default/files/2025-06/Artwork%20for%20Printing%20Your%20Own%20Red%20Cards%20-%20Nepali.pdf'),
+]
+
+
+def lang_cards(lang):
+    es = lang == "es"
+    items = []
+    for tag, rtl, native, english, url in LANG_CARDS:
+        label = '<span lang="%s"%s>%s</span>' % (tag, ' dir="rtl"' if rtl else '', E(native))
+        if native != english:
+            label += ' <span lang="en">(%s)</span>' % E(english)
+        items.append('<li><a class="btn secondary" href="%s" rel="noopener noreferrer">%s</a></li>' % (E(url, True), label))
+    return ('<div class="otherlang"><h3>Otros idiomas / Other languages</h3><p>%s</p><ul>%s</ul></div>'
+            % ('Tarjetas oficiales del ILRC en otros idiomas.' if es else 'Official ILRC cards in other languages.', ''.join(items)))
+
+
 def content(lang):
     es = lang == "es"
     p = lang  # id prefix
@@ -344,12 +389,13 @@ def content(lang):
 
     # 1 Basics
     sec("basics", T("Empieza aquí", "Start here"),
-        "%s%s<div class=\"calls\">%s%s</div>%s" % (
+        "%s%s<div class=\"calls\">%s%s</div>%s%s" % (
             quote(lang, "aclu_%s_overview" % lang),
             quote(lang, "aclu_%s_asks" % lang),
             '<a class="btn primary" href="%s" rel="noopener noreferrer">%s</a>' % (E(SOURCES["aclu_es"][0], True), T("Todos los escenarios de la ACLU, en español", "All ACLU scenarios, in Spanish")),
             '<a class="btn primary" href="%s" rel="noopener noreferrer" lang="en">%s</a>' % (E(SOURCES["aclu"][0], True), T("Todos los escenarios de la ACLU, en inglés", "All ACLU scenarios, in English")),
-            sources(lang, ["aclu", "aclu_es"])))
+            lang_cards(lang),
+            sources(lang, ["aclu", "aclu_es", "ilrc_red"])))
 
     # 2 Home
     sec("home", T("Si ICE o la policía tocan a tu puerta", "If ICE or the police come to your door"),
@@ -610,6 +656,7 @@ def sources_md():
             "- Detention facility phone numbers shown on the Florence Project FAQ: that page still uses old facility names, so they are left out.",
             "", "## Notes for the reviewer", "",
             "- The Spanish headings, buttons and notices written for this page were produced by an AI and need a read by a native speaker before the site goes public. The quoted Spanish is the ACLU's own.",
+            "- Other languages: 25 ILRC red card PDFs are linked (Phoenix priority order), each downloaded and checked on %s to be in the labeled language. ILRC's \"Lingala\" PDF carries Kinyarwanda text, so Lingala is left out. No translation on this page was made by us; the language names in their own script need a native read (see docs/NEEDS-NATIVE-READ.md)." % CHECKED,
             "- ILRC red card files are linked on ilrc.org, not copied. ILRC's site says \"All rights reserved\" and has a reprint permission form.",
             "- All legal wording is quoted word for word from the ACLU, the ACLU of Arizona or the Arizona Legislature (azleg.gov), each with the notice its terms require. ILRC is linked only.",
             "- ACLU terms: https://www.aclu.org/about/aclu-site-user-agreement (text may be copied for noncommercial use, with no editorial changes, no misleading excerpts, and the copyright notice). ACLU of Arizona terms: https://www.acluaz.org/user-agreement/ (same three limits).",
