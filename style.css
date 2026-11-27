@@ -47,6 +47,14 @@ a{color:var(--accent);text-decoration-thickness:2px;text-underline-offset:3px}
 .say p{margin:0}
 .say p[lang="en"]{font-size:1.3rem;font-weight:700}
 .say .mean{margin-top:6px;font-size:1.1rem}
+.quote{margin:14px 0;padding:12px 14px;border:1px solid #b8bec6;border-left:6px solid var(--accent);border-radius:8px;background:#f7fafd}
+.qlabel{margin:0 0 8px;font-size:1.05rem;font-weight:700;color:var(--accent)}
+.qbody h3{margin-top:0}
+.qbody h4{font-size:1.15rem;margin:1em 0 .3em}
+.qbody ul{margin:0 0 .8em;padding-left:1.3em}
+.qbody li{margin:0 0 .5em}
+.quote figcaption{margin-top:10px;padding-top:8px;border-top:1px solid #cfd4da;font-size:1.05rem}
+.quote figcaption a{word-break:break-all}
 .redcard{border:3px solid var(--red);border-radius:10px;padding:12px 14px;background:#fff5f5}
 .redcard p:last-child{margin:0}
 .org{border:1px solid #b8bec6;border-radius:8px;padding:14px 12px;margin:14px 0;background:#fafbfc}
