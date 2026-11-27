@@ -254,6 +254,10 @@ with open(os.path.join(ROOT, "tools", "quotes.json"), encoding="utf-8") as _f:
 RETRIEVED_TXT = {"es": "27 de noviembre de 2026", "en": "November 27, 2026"}
 
 
+AILA_DEAD = "https://www.aila.org/client-flyer-know-your-rights"
+AILA_LIVE = "https://www.aila.org/library/client-flyer-know-your-rights"
+
+
 def quote(lang, key):
     """A passage copied word for word from its source, with the notice the source's terms require.
 
@@ -280,8 +284,16 @@ def quote(lang, key):
         notice = "Copyright %s %s. Originally posted by the %s at %s." % (
             q["year"], who, "ACLU" if kind == "aclu" else "ACLU of Arizona", link)
         notice += " " + (("Leído el %s." if es else "Read on %s.") % RETRIEVED_TXT[lang])
-    return '<figure class="quote" lang="%s"><p class="qlabel" lang="%s">%s</p><div class="qbody">%s</div><figcaption>%s</figcaption></figure>' % (
+    fig = '<figure class="quote" lang="%s"><p class="qlabel" lang="%s">%s</p><div class="qbody">%s</div><figcaption>%s</figcaption></figure>' % (
         q["lang"], lang, E(label), body, notice)
+    # Our own note, outside the figure, because the quoted ACLU text (never edited) links to a page that is gone.
+    if kind != "ars" and AILA_DEAD in q["html"]:
+        if es:
+            n = 'Nota: el enlace de AILA en el texto de la ACLU ya no funciona. La guía actual de AILA está aquí: <a href="%s" rel="noopener noreferrer">AILA</a>.' % AILA_LIVE
+        else:
+            n = 'Note: the AILA link in the ACLU text no longer works. AILA\'s current guide is here: <a href="%s" rel="noopener noreferrer">AILA</a>.' % AILA_LIVE
+        fig += '<p class="qnote" lang="%s">%s</p>' % (lang, n)
+    return fig
 
 
 def orgs(lang):
