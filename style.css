@@ -34,6 +34,12 @@ a{color:var(--accent);text-decoration-thickness:2px;text-underline-offset:3px}
 .btn.secondary{background:#fff;color:var(--accent)}
 .btn.big{width:100%;font-size:1.35rem;min-height:64px}
 .calls{display:grid;gap:10px;margin:12px 0}
+.otherlang{margin:18px 0 6px}
+.otherlang h3{margin-top:0}
+.otherlang ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;grid-template-columns:1fr 1fr}
+.otherlang .btn{width:100%;min-height:56px;padding:8px 10px;font-size:1.05rem;text-align:center;flex-wrap:wrap;gap:0 .4em}
+.otherlang .btn span[dir=rtl]{unicode-bidi:isolate}
+@media(max-width:380px){.otherlang ul{grid-template-columns:1fr}}
 .steps{margin:0;padding-left:1.6em}
 .steps li{margin:0 0 .7em;padding-left:.2em}
 .steps li::marker{font-weight:700;color:var(--accent)}
