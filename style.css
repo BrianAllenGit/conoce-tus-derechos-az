@@ -55,6 +55,7 @@ a{color:var(--accent);text-decoration-thickness:2px;text-underline-offset:3px}
 .qbody li{margin:0 0 .5em}
 .quote figcaption{margin-top:10px;padding-top:8px;border-top:1px solid #cfd4da;font-size:1.05rem}
 .quote figcaption a{word-break:break-all}
+.qnote{margin:8px 0 0;padding:8px 12px;background:#fff8e1;border:2px solid #7a5b00;border-radius:8px;font-size:1.05rem}
 .redcard{border:3px solid var(--red);border-radius:10px;padding:12px 14px;background:#fff5f5}
 .redcard p:last-child{margin:0}
 .org{border:1px solid #b8bec6;border-radius:8px;padding:14px 12px;margin:14px 0;background:#fafbfc}
